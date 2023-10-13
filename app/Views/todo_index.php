@@ -9,61 +9,52 @@
 </head>
 <body>
     <div class="container">
-    <h1>Todo List</h1>
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Tambahkan Acara</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Isikan Acara">
-    </div>
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Deadline</label>
-        <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="Isikan Acara">
-    </div>
-    <button type="button" class="btn btn-primary">Tambahkan</button>
-    <br></br>
-    <div class="mb-3">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Todo</th>
-                <th>Deadline</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>Belajar Membuat Project Codeigniter 4</td>
-                <td>14/10/2023</td>
-                <td>
-                <button class="btn btn-danger">
-                    <i class="bi bi-trash"></i> Hapus
-                </button>
-            </tr>
-            <tr>
-            </td>
-                <td>2</td>
-                <td>Belajar Membuat Controller Codeigniter 4</td>
-                <td>14/10/2023</td>
-                <td>
-                <button class="btn btn-danger">
-                    <i class="bi bi-trash"></i> Hapus
-                </button>
-                </td>
-            </tr>
-            <tr>
-            </td>
-                <td>3</td>
-                <td>Belajar Membuat Model Codeigniter 4</td>
-                <td>14/10/2023</td>
-                <td>
-                <button class="btn btn-danger">
-                    <i class="bi bi-trash"></i> Hapus
-                </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <h1>Todo List</h1>
+        <form method="post" action="/create-todo">
+            <div class="mb-3">
+                <label for="todoInput" class="form-label">Tambahkan Acara</label>
+                <input type="text" class="form-control" id="todoInput" name="todo" placeholder="Isikan Acara">
+            </div>
+            <div class="mb-3">
+                <label for="deadlineInput" class="form-label">Deadline</label>
+                <input type="date" class="form-control" id="deadlineInput" name="deadline">
+            </div>
+            <button type="submit" class="btn btn-primary" name="tambahButton">Tambahkan</button>
+        </form>
+        <br></br>
+        <div class="mb-3">
+        <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Todo</th>
+            <th>Deadline</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        if (!empty($todos)) {
+            $count = 1;
+            foreach ($todos as $todo) {
+                echo "<tr>";
+                echo "<td>" . $count . "</td>";
+                echo "<td>" . $todo->todo . "</td>"; 
+                echo "<td>" . $todo->deadline . "</td>"; 
+                echo "<td>
+                    <a href='delete-todo/" . $todo->id . "' class='btn btn-danger'>
+                        <i class='bi bi-trash'></i> Hapus
+                    </a>
+                </td>";
+                echo "</tr>";
+                $count++;
+            }
+        }
+        ?>
+    </tbody>
+</table>
+
+        </div>
     </div>
 </body>
 </html>
